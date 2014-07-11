@@ -73,11 +73,16 @@ set autoread
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 "set runtimepath=~/.vim,/vimfiles,
 
+" Markdown
+" https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled=1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pathogen
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 execute pathogen#infect()
+
 
 
 
