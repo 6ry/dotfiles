@@ -82,6 +82,10 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 " * pathogen
 " https://github.com/tpope/vim-pathogen
 "
+" * Gundo
+" https://github.com/vim-scripts/Gundo
+" http://www.bestofvim.com/plugin/gundo/
+"
 " * vim-markdown
 " https://github.com/plasticboy/vim-markdown
 "
@@ -93,6 +97,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 "
 " * nerdtree
 " https://github.com/scrooloose/nerdtree
+" http://www.bestofvim.com/plugin/nerdtree/
 "
 " * netrw
 " https://github.com/vim-scripts/netrw.vim
