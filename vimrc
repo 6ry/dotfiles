@@ -73,6 +73,47 @@ set autoread
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 "set runtimepath=~/.vim,/vimfiles,
 
+
+
+" Vim Plugins
+" ===========
+" * colorscheme
+"
+" * pathogen
+" https://github.com/tpope/vim-pathogen
+"
+" * Gundo
+" https://github.com/vim-scripts/Gundo
+" http://www.bestofvim.com/plugin/gundo/
+"
+" * vim-markdown
+" https://github.com/plasticboy/vim-markdown
+"
+" * taglist
+" https://github.com/vim-scripts/taglist.vim
+"
+" * Align
+" https://github.com/vim-scripts/Align
+"
+" * nerdtree
+" https://github.com/scrooloose/nerdtree
+" http://www.bestofvim.com/plugin/nerdtree/
+"
+" * netrw
+" https://github.com/vim-scripts/netrw.vim
+"
+" * ack
+" https://github.com/vim-scripts/ack.vim
+"
+" * vim-flake8 (Python)
+" https://github.com/nvie/vim-flake8
+"
+" * jedi-vim (Python)
+" https://github.com/davidhalter/jedi-vim
+
+
+
+
 " Markdown
 " https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
@@ -120,22 +161,14 @@ syntax on
 " or uncomment the following -- press <Enter> to turnoff highlight
 "nnoremap <CR> :noh<CR><CR>
 
-colorscheme molokai
-"colorscheme nature
-"colorscheme darkdot
-"colorscheme soso
-"colorscheme reliable
-"colorscheme biogoo
-"colorscheme wood
-"colorscheme nedit2
-"colorscheme brookstream
+set background=dark
 
-"colorscheme peaksea
-"set background=dark
-"colorscheme blue
-"colorscheme adaryn
-"colorscheme dw_green
-"colorscheme manxome
+"colorscheme xoria256
+"colorscheme BusyBee
+colorscheme molokai
+"colorscheme crt
+"colorscheme cthulhian
+"colorscheme desert256
 
 
 " dont want no Ex mode
