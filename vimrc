@@ -2,56 +2,11 @@
 " In order to add a control character to your .vimrc you must type Ctrl-v
 " first. For example,  is done by Ctrl-v Ctrl-t.
 
-" vimtips
-" http://www-tips.org/tips
-
 
 " self help
 " :help <topic>
 " e.g.
 " :help linebreak
-
-
-" gq magic
-" http://vimdoc.sourceforge.net/htmldoc/change.html#gq
-" gqap or {Visual}gq
-" gwap or {Visual}gw
-
-
-" :reg[gisters]
-" :di[splay]
-
-
-" list of buffers
-" :buffers
-
-
-" put all open buffers in tabs
-" :tab sball
-
-
-" key mappings
-" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_1%29
-" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_2%29
-" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_3%29
-"
-" list all key mappings
-" :map
-"
-" list key maps with specific mode (add prefix)
-" :nmap - Display normal mode maps
-" :imap - Display insert mode maps
-" :vmap - Display visual and select mode maps
-" :smap - Display select mode maps
-" :xmap - Display visual mode maps
-" :cmap - Display command-line mode maps
-" :omap - Display operator pending mode maps
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Regex
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" http://vimregex.com/
 
 
 
@@ -69,25 +24,60 @@ filetype indent on
 set autoread
 
 
-" Python
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-"set runtimepath=~/.vim,/vimfiles,
-
 
 
 " Vim Plugins
 " ===========
 " * colorscheme
+" https://code.google.com/p/vimcolorschemetest/
+syntax on
+set background=dark
+"colorscheme xoria256
+"colorscheme BusyBee
+colorscheme molokai
+"colorscheme crt
+"colorscheme cthulhian
+"colorscheme desert256
 "
 " * pathogen
 " https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
 "
 " * Gundo
+" http://sjl.bitbucket.org/gundo.vim/
 " https://github.com/vim-scripts/Gundo
 " http://www.bestofvim.com/plugin/gundo/
+" related   :help undo-tree
+"           :help undo-branches
+nnoremap <F9> :GundoToggle<CR>
+"
+" * Airline
+" https://github.com/bling/vim-airline
+" :help airline
+let g:airline_theme='laederon'
+"let g:airline_theme='lucius'
+"
+" ctrlp.vim
+" https://kien.github.io/ctrlp.vim/
+" https://github.com/kien/ctrlp.vim.git
+" :help ctrlp-commands
+" :help ctrlp-extensions
+" # Basic Usage #
+" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" Press <c-f> and <c-b> to cycle between modes.
+" Press <c-d> to switch to filename only search instead of full path.
+" Press <c-r> to switch to regexp mode.
+" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
+" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
+" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+" Use <c-y> to create a new file and its parent directories.
+" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 "
 " * vim-markdown
 " https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled=1
 "
 " * taglist
 " https://github.com/vim-scripts/taglist.vim
@@ -114,15 +104,56 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 
 
-" Markdown
-" https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled=1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+"set runtimepath=~/.vim,/vimfiles,
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pathogen
+"" Auto commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-execute pathogen#infect()
+" Automatically remove all trailing whitespace upon :write (:w)
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Persistent Undo
+" :help persistent-undo
+" :help undo-persistence
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos (default 1000 for Unix)
+set undoreload=10000        " number of lines to save for undo (default 10000)
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spell check and highlight
+" http://vimdoc.sourceforge.net/htmldoc/spell.html
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" use aspell as spellchecker
+" keymap to Ctrl-T
+"map  :w!<CR>:!aspell check %<CR>:e! %<CR>
+
+"set spell spelllang=en
+nnoremap F11> :setlocal spell! spelllang=en<CR>
+" zg to add word to word list
+" zw to reverse
+" zug to remove word from word list
+" z= to get list of possibilities
+set spellfile=~/.vim/spellfile.add
+
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
 
 
 
@@ -142,63 +173,17 @@ set smartcase
 
 set hlsearch "Highlight search things
 
-" fancy menu
 set wildmenu
 
 " soft wrap
 set wrap linebreak nolist   " list disables linebreak
 "set wrap linebreak textwidth=0
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://code.google.com/p/vimcolorschemetest/
-
-" syntax highlight
-syntax on
-" to turnoff hightlight, issue :noh command
-" or uncomment the following -- press <Enter> to turnoff highlight
-"nnoremap <CR> :noh<CR><CR>
-
-set background=dark
-
-"colorscheme xoria256
-"colorscheme BusyBee
-colorscheme molokai
-"colorscheme crt
-"colorscheme cthulhian
-"colorscheme desert256
-
-
 " dont want no Ex mode
 nmap Q <Nop>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell check and highlight
-" http://vimdoc.sourceforge.net/htmldoc/spell.html
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" use aspell as spellchecker
-" keymap to Ctrl-T
-"map  :w!<CR>:!aspell check %<CR>:e! %<CR>
 
-"set spell spelllang=en
-map <F11> :setlocal spell! spelllang=en<CR>
-" zg to add word to word list
-" zw to reverse
-" zug to remove word from word list
-" z= to get list of possibilities
-set spellfile=~/.vim/spellfile.add
-
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
-highlight SpellLocal term=underline cterm=underline
 
 
 
@@ -319,21 +304,24 @@ set scs
 " Set 'g' substitute flag on
 " set gdefault
 
-" Set status line
-"set statusline=[%02n]\ %f\ %(\[%M%R%H]%)%=\ %4l,%02c%2V\ %P%*
-let s  = ""
-let s .= "%<"                                 | " truncate at the start
-let s .= "%f%8* "                             | " file name
-let s .= "%r"                                 | " readonly flag
-let s .= '%{&bomb?"!":""} '                   | " byte-order mark flag
-let s .= "%*%="                               | " right-justify after here
-let s .= "%9*%m%* "                           | " modified flag
-let s .= "0x%02B "                            | " hex value of current byte
-let s .= "%l"                                 | " current line
-let s .= ":%c%V"                              | " column number, virtual column (if different)
-let s .= " %P"                                | " percentage
-let s .= "/%LL"                               | " number of lines
-set statusline=%!s
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Status line (DEPRECATED by vim-airline)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Set status line
+""set statusline=[%02n]\ %f\ %(\[%M%R%H]%)%=\ %4l,%02c%2V\ %P%*
+"let s  = ""
+"let s .= "%<"                                 | " truncate at the start
+"let s .= "%f%8* "                             | " file name
+"let s .= "%r"                                 | " readonly flag
+"let s .= '%{&bomb?"!":""} '                   | " byte-order mark flag
+"let s .= "%*%="                               | " right-justify after here
+"let s .= "%9*%m%* "                           | " modified flag
+"let s .= "0x%02B "                            | " hex value of current byte
+"let s .= "%l"                                 | " current line
+"let s .= ":%c%V"                              | " column number, virtual column (if different)
+"let s .= " %P"                                | " percentage
+"let s .= "/%LL"                               | " number of lines
+"set statusline=%!s
 
 
 " Always display a status line at the bottom of the window
@@ -345,18 +333,19 @@ set shortmess=a
 " showmatch: Show the matching bracket for the last ')'?
 set showmatch
 
+" window min height
+set wmh=0
 
 
 
-""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Key bindings (re)map
-""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map function keys F2, F3, F4 to tab operations
 nnoremap <F2> :tabnew
 nnoremap <F3> :tabprevious<CR>
 nnoremap <F4> :tabnext<CR>
-
-
 
 " window splits
 " (ctrl) F5, F6, F7, F8 to split and resize windows
@@ -376,46 +365,82 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
-
 " :help window-moving
-" shortcut keys for moving windows around?
+" TODO shortcut keys for moving windows around?
 
-" window min height
-set wmh=0
+" <F9> mapped to Gundo
+" <F11> mapped to spellcheck
+" <F12> mapped to AppendModeline()
 
 
-
-"map <F9> :GundoToggle<CR>
 "map <leader>a <Esc>:Ack!
 
 
 
-""
-"" Auto commands
-""
-" Automatically remove all trailing whitespace upon :write (:w)
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
-autocmd BufWritePre * :%s/\s\+$//e
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tips reminder
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""
-"" Tips reminder
-""
+" vimtips
+" http://www-tips.org/tips
+
+
+" http://vimregex.com/
+
+
 " :E[xplore]        opens the file explorer window
 " :Ack              ack (like grep)
 " :Align            align selected area with delimiter
 " :nohl             no highlight
+" :noh              ditto
 " :set nonumber     unset line numbers
 " Ctrl-I            trace changes forward
 " Ctrl-O            trace changes backward
 
 
+" :marks        | show marks
+" :reg[gisters] | show registers
+" :di[splay]    | ditto
+" :buffers      | show buffers
+" :tab sball    | put all open buffers in tabs
+
+" key mappings
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_1%29
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_2%29
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_3%29
+"
+" :map  | show all key mappings
+" :nmap | only show normal mode maps
+" :imap | only show insert mode maps
+" :vmap | only show visual and select mode maps
+" :smap | only show select mode maps
+" :xmap | only show visual mode maps
+" :cmap | only show command-line mode maps
+" :omap | only show operator pending mode maps
+
+
+" gq magic
+" http://vimdoc.sourceforge.net/htmldoc/change.html#gq
+" gqap or {Visual}gq
+" gwap or {Visual}gw
+
+
+" Text objects
+" :help text-objects
+" http://blog.carbonfive.com/2011/10/17/vim-text-objects-the-definitive-guide/
+" ciw
+" caw
+" diw
+" daw
+" caW
+
 
 " https://wiki.archlinux.org/index.php/Vimrc
 "
 " VIM TIPS / HELP / TRICKS   {{{1
-" ====================================================================================================
+" ---------------------------------
 
 " BEST TRICKS {{{2
 
@@ -539,7 +564,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " CTRL-^        - SWITCH BETWEEN FILES
 " CTRL-W-TAB  - CREATE DUPLICATE WINDOW
 " CTRL-N        - Find keyword for word in front of cursor
-" CTRL-P        - Find PREV diddo
+" CTRL-P        - Find PREV ditto
 
 
 " SEARCH / REPLACE {{{3
