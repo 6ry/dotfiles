@@ -376,6 +376,11 @@ nnoremap <C-L> <C-W>l
 " =============================================================
 " Tips reminder
 " =============================================================
+" cheatsheet
+" http://bullium.com/support/vim_print.html
+
+" run from shell
+" $ vimtutor
 
 " vimtips
 " http://www-tips.org/tips
@@ -392,10 +397,32 @@ nnoremap <C-L> <C-W>l
 " :%sort!  | sort in reverse
 " :%sort u | sort, and remove duplicates
 " :%sort n | numeric sort
+"
+" * power of g
+" http://vim.wikia.com/wiki/Power_of_g
+" :g/^\s*$/d        | delete empty lines in file
+" :g!/\S/d          | delete empty lines in file
+" :v/\S/d           | delete empty lines in file
+" :g/^/pu =\"\n\"   | double psace the file
+" :g/^/pu _         | double space the file
+" qaq:g/pattern/y A | copy all lines matching a pattern to register 'a'
+"                   | explanation: qaq is a trick to clear register a (qa starts recording a
+"                   | macro to register a, then q stops recording, leaving a empty). y A is an
+"                   | Ex command (:help :y). It yanks the current line into register A (append
+"                   | to register a).
+" :g/pattern/d_     | FAST delete of all lines matching a pattern
+"
+" :2,8co15  | copy lines 2 through 8 after line 15
+" :4,15t$   | copy lines 4 through 15 to end of document (t == co)
+" :-t$      | copy previous line to end of document
+" :m0       | move current line to line 0 (i.e. the top of the document)
+" :.,+3m$-1 | current line through current+3 are moved to the lastLine-1 (i.e. next to last)
 
 
 " http://vimregex.com/
 "
+" escaped characters
+" ------------------
 " .   any character except new line
 " \s  whitespace character
 " \S  non-whitespace character
@@ -656,7 +683,6 @@ nnoremap <C-L> <C-W>l
 " :%s/abcde/abc^Mde/            | modifies abcde    to abc, de (two lines)
 " :%s/$/\^M/                    | modifies abcde    to abcde^M
 " :%s/\w\+/\u\0/g               | modifies bla bla  to Bla Bla
-" :g!/\S/d                      | delete empty lines in file
 
 
 "  COMMANDS {{{3
