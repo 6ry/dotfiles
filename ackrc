@@ -1,0 +1,6 @@
+--color
+--context=3
+--pager=less -r
+--recurse
+--smart-case
+--sort-files
