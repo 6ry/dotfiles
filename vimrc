@@ -140,6 +140,7 @@ noremap <leader>bd <Esc>:MBEbd<CR>
 " https://github.com/kien/ctrlp.vim.git
 " :help ctrlp-commands
 " :help ctrlp-extensions
+"
 " > In popup windown:
 " <F5>                       | purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
 " <c-f> and <c-b>            | cycle between modes.
@@ -152,7 +153,6 @@ noremap <leader>bd <Esc>:MBEbd<CR>
 " <c-z>                      | mark/unmark multiple files and <c-o> to open them.
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-" TODO: bind CtrlPTag to ctrl-t ??
 "
 " Gundo
 " -----
@@ -163,9 +163,44 @@ let g:ctrlp_cmd = 'CtrlP'
 "           :help undo-branches
 nnoremap <leader>u <Esc>:GundoToggle<CR>
 "
+" taglist
+" -------
+" NOTE: install this plugin from arch repo (vim-taglist), this will
+"       also  install Exuberant Ctags, which is required by vim-easytags
+" https://github.com/vim-scripts/taglist.vim
+nnoremap <leader>q <Esc>:TlistToggle<CR>
+"
 " vim-easytags
 " ------------
 " https://github.com/xolox/vim-easytags
+"
+" > :UpdateTags
+" > -----------
+" > This command executes Exuberant Ctags from inside Vim to update the global
+" > tags file defined by g:easytags_file. When no arguments are given the tags
+" > for the current file are updated, otherwise the arguments are passed on to
+" > ctags. For example when you execute the Vim command :UpdateTags -R ~/.vim
+" > (or :UpdateTags -R ~\vimfiles on Windows) the plug-in will execute ctags -R
+" > ~/.vim for you (with some additional arguments, see the troubleshooting
+" > section “:HighlightTags only works for the tags file created by
+" > :UpdateTags” for more information).
+"
+" > When you execute this command like :UpdateTags! (including the bang!) then
+" > all tags whose files are missing will be filtered from the global tags
+" > file.
+"
+" > Note that this command will be executed automatically every once in a
+" > while, assuming you haven’t changed g:easytags_on_cursorhold.
+"
+" > :HighlightTags
+" > --------------
+" > When you execute this command while editing one of the supported file types
+" > (see above) the relevant tags in the current file are highlighted. The tags
+" > to highlight are gathered from all tags files known to Vim (through the
+" > ‘tags’ option).
+"
+" > Note that this command will be executed automatically every once in a
+" > while, assuming you haven’t changed g:easytags_on_cursorhold.
 "
 " nerdtree
 " --------
@@ -203,6 +238,7 @@ noremap <leader>a <Esc>:Ack!<Space>
 " https://github.com/scrooloose/syntastic
 "
 " TaskList
+" --------
 " https://github.com/vim-scripts/TaskList.vim
 " NOTE: TaskList mapped to <leader>t
 "
@@ -221,13 +257,6 @@ let g:vim_markdown_folding_disabled=1
 " =============================================================
 " Potential Plugins
 " =============================================================
-"
-" taglist
-" -------
-" NOTE: install this plugin from arch repo (vim-taglist), this will
-"       also  install Exuberant Ctags, which is required by vim-easytags
-" https://github.com/vim-scripts/taglist.vim
-"nnoremap <F10> :TlistToggle<CR>
 "
 " netrw
 " -----
@@ -437,8 +466,8 @@ nnoremap <F7> >
 "nnoremap [18^ +
 nnoremap <leader><F5> :split<CR>
 " TODO: need to hit <leader> key everytime, no continuous motion =(
-nnoremap <leader><F6> -
-nnoremap <leader><F7> +
+nnoremap <leader><F6> 5-
+nnoremap <leader><F7> 5+
 nnoremap <F8> =
 
 " :help window-move-cursor
