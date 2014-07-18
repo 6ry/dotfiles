@@ -20,6 +20,24 @@
 filetype plugin on
 filetype indent on
 
+let mapleader=','
+
+set ffs=unix,dos,mac           " Default file types
+set history=1024               " how many lines of history to remember
+set nocompatible               " use Vim settings, rather then Vi settings (much better!).
+set autoread                   " Set to auto read when a file is changed from the outside
+set showmatch                  " when a bracket is inserted, briefly jump to the matching one
+set hidden                     " :help hidden, related to buffers
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set selectmode=mouse           " select when using the mouse
+set laststatus=2               " Always display a status line at the bottom of the window
+set shortmess=a                " alwasy show 'short messages'
+set so=7                       " set 7 lines to the curors - when moving vertical
+" TODO: figure out the long name of 'so'
+
+" dont want no Ex mode
+nmap Q <Nop>
+
 " default encoding and language
 " -----------------------------
 set encoding=utf8
@@ -28,10 +46,12 @@ try
 catch
 endtry
 
-" measurements
-" ------------
+" layout
+" ------
 set number              " show line numbers
-set ruler               "always show current position
+set ruler               " always show current position
+set wildmenu
+set cmdheight=2         " commandbar height
 
 " code folding
 " ------------
@@ -57,27 +77,9 @@ set incsearch           " do incremental searches (annoying but handy)
 set wrap linebreak nolist   " list disables linebreak
 "set wrap linebreak textwidth=0
 
-set ffs=unix,dos,mac           " Default file types
-set nocompatible               " use Vim settings, rather then Vi settings (much better!).
-set history=1024               " how many lines of history to remember
-set autoread                   " Set to auto read when a file is changed from the outside
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set so=7                       " set 7 lines to the curors - when moving vertical..
-set cmdheight=2                " commandbar height
-set wildmenu
-set selectmode=mouse           " select when using the mouse
-set showcmd                    " show (partial) commands
-set shortmess=a                " use 'short messages'
-set showmatch                  " when a bracket is inserted, briefly jump to the matching one
-set wmh=0                      " window min height
-
-" dont want no Ex mode
-nmap Q <Nop>
-
 "set autoindent " always  set auto indenting on
-
 "set verbose=9 " turn on the verboseness to see everything vim is doing.
-"set nonu
+"set gdefault     " g flag always on
 
 " command to unset autoindent
 ":setlocal noautoindent nocindent nosmartindent indentexpr=
@@ -87,10 +89,6 @@ nmap Q <Nop>
 " ---------------------------------------
 "set list
 "set listchars=tab:>.
-
-" Set 'g' substitute flag on
-" set gdefault
-
 
 
 
@@ -121,10 +119,20 @@ execute pathogen#infect()
 " https://github.com/bling/vim-airline
 " :help airline
 " Automatically displays all buffers when there's only one tab open
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='laederon'
 "let g:airline_theme='lucius'
-
+"
+" minibufexpl
+" -----------
+" http://fholgado.com/minibufexpl
+" https://github.com/fholgado/minibufexpl.vim
+noremap <leader>b  <Esc>:MBEToggle<CR>
+"noremap <leader>bn <Esc>:MBEbn<CR>
+"noremap <leader>bp <Esc>:MBEbp<CR>
+noremap <leader>bf <Esc>:MBEbn<CR>
+noremap <leader>bb <Esc>:MBEbp<CR>
+noremap <leader>bd <Esc>:MBEbd<CR>
 "
 " ctrlp.vim
 " ---------
@@ -144,7 +152,7 @@ let g:airline_theme='laederon'
 " <c-z>                      | mark/unmark multiple files and <c-o> to open them.
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-" TODO bind CtrlPTag to ctrl-t ??
+" TODO: bind CtrlPTag to ctrl-t ??
 "
 " Gundo
 " -----
@@ -153,22 +161,22 @@ let g:ctrlp_cmd = 'CtrlP'
 " http://www.bestofvim.com/plugin/gundo/
 " related   :help undo-tree
 "           :help undo-branches
-nnoremap <F9> :GundoToggle<CR>
+nnoremap <leader>u <Esc>:GundoToggle<CR>
 "
-" taglist
-" -------
-" https://github.com/vim-scripts/taglist.vim
-nnoremap <F10> :TlistToggle<CR>
+" vim-easytags
+" ------------
+" https://github.com/xolox/vim-easytags
 "
 " nerdtree
 " --------
 " https://github.com/scrooloose/nerdtree
 " http://www.bestofvim.com/plugin/nerdtree/
-nnoremap <F11> :NERDTreeToggle<CR>
+nnoremap <leader>B <Esc>:NERDTreeToggle<CR>
 "
 " Align
 " -----
 " https://github.com/vim-scripts/Align
+noremap <leader>l <Esc>:Align<Space>
 "
 " ack.vim
 " -------
@@ -185,24 +193,61 @@ nnoremap <F11> :NERDTreeToggle<CR>
 " v  | open in vertical split
 " gv | open in vertical split silently
 " q  | close the quickfix window
+noremap <leader>a <Esc>:Ack!<Space>
+"
+" supertab
+" https://github.com/ervandew/supertab
 "
 " syntastic
 " ---------
 " https://github.com/scrooloose/syntastic
+"
+" TaskList
+" https://github.com/vim-scripts/TaskList.vim
+" NOTE: TaskList mapped to <leader>t
 "
 " vim-markdown
 " ------------
 " https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
 "
+" jedi-vim (Python)
+" -----------------
+" https://github.com/davidhalter/jedi-vim
+
+
+
+
+" =============================================================
+" Potential Plugins
+" =============================================================
+"
+" taglist
+" -------
+" NOTE: install this plugin from arch repo (vim-taglist), this will
+"       also  install Exuberant Ctags, which is required by vim-easytags
+" https://github.com/vim-scripts/taglist.vim
+"nnoremap <F10> :TlistToggle<CR>
+"
 " netrw
 " -----
 " https://github.com/vim-scripts/netrw.vim
 "
-" jedi-vim (Python)
-" -----------------
-" https://github.com/davidhalter/jedi-vim
+" ShowMarks
+" ---------
+" https://github.com/vim-scripts/ShowMarks
+" NOTE: too bad, i really want this one to work!
 "
+" snipMate
+" --------
+"
+" Surround
+" --------
+"
+" fugitive
+" --------
+"
+
 
 
 
@@ -212,6 +257,7 @@ let g:vim_markdown_folding_disabled=1
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 " =============================================================
 autocmd BufWritePre * :%s/\s\+$//e
+
 
 
 
@@ -256,24 +302,24 @@ highlight SpellLocal term=underline cterm=underline
 
 
 
-"" =============================================================
-"" modeline magic
-"" http://vim.wikia.com/wiki/Modeline_magic
-"" :help auto-setting
-"" :help modeline
-"" :help modelines
-"" =============================================================
-"" Append modeline after last line in buffer.
-"" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
-"" files.
-"function! AppendModeline()
-"  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-"          \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-"  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-"call append(line("$"), l:modeline)
-"endfunction
-"" nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-"nnoremap <F12> :call AppendModeline()<CR>
+" =============================================================
+" modeline magic
+" http://vim.wikia.com/wiki/Modeline_magic
+" :help auto-setting
+" :help modeline
+" :help modelines
+" =============================================================
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+          \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+call append(line("$"), l:modeline)
+endfunction
+" nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+nnoremap <leader><F12> :call AppendModeline()<CR>
 
 
 
@@ -282,6 +328,7 @@ highlight SpellLocal term=underline cterm=underline
 " tabs and indentation mess
 " http://tedlogan.com/techblog3.htmlA
 " =============================================================
+" NOTE: turned these off, defer the job to supertab
 " >> tabstop
 " Set tabstop to tell vim how many columns a tab counts for.
 "
@@ -299,10 +346,10 @@ highlight SpellLocal term=underline cterm=underline
 " of tabs and spaces to make up the desired spacing. If softtabstop equals tabstop and
 " expandtab is not set, vim will always use tabs. When expandtab is set, vim will always
 " use the appropriate number of spaces.
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
+"set tabstop=4
+"set softtabstop=4
+"set shiftwidth=4
+"set expandtab
 
 
 
@@ -310,7 +357,7 @@ set expandtab
 " =============================================================
 " Status line (DEPRECATED by vim-airline)
 " =============================================================
-"" Set status line
+" NOTE: currently turned off, delegated to Airline
 ""set statusline=[%02n]\ %f\ %(\[%M%R%H]%)%=\ %4l,%02c%2V\ %P%*
 "let s  = ""
 "let s .= "%<"                                 | " truncate at the start
@@ -326,14 +373,51 @@ set expandtab
 "let s .= "/%LL"                               | " number of lines
 "set statusline=%!s
 
-" Always display a status line at the bottom of the window
-set laststatus=2
-
 
 
 
 " =============================================================
-"" Key bindings (re)map
+" Key Mappings
+"
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_1%29
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_2%29
+" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_3%29
+"
+" :map  | show all maps for the current buffer
+" :map! | same as above, except showing output in a mini-window
+" :nmap | only show normal mode maps
+" :imap | only show insert mode maps
+" :vmap | only show visual and select mode maps
+" :smap | only show select mode maps
+" :xmap | only show visual mode maps
+" :cmap | only show command-line mode maps
+" :omap | only show operator pending mode maps
+"
+" :verbose maps      | show all mapped keys
+" :verbose map <key> | show all mapped keys begin with <key>
+" example :verbose map ,
+"
+" Special characters:
+" <BS>           backspace
+" <Tab>          tab
+" <CR>           enter
+" <Enter>        enter
+" <Return>       enter
+" <Esc>          escape
+" <Space>        space
+" <Up>           up arrow
+" <Down>         down arrow
+" <Left>         left arrow
+" <Right>        right arrow
+" <F1> - <F12>   function keys 1 to 12
+" #1, #2..#9,#0  function keys f1 to f9, f10
+" <Insert>       insert
+" <Del>          delete
+" <Home>         home
+" <End>          end
+" <PageUp>       page-up
+" <PageDown>     page-down
+" <bar>          the '|' character, which otherwise needs to be escaped '\|'
 " =============================================================
 " map function keys F2, F3, F4 to tab operations
 nnoremap <F2> :tabnew
@@ -348,9 +432,13 @@ nnoremap <F4> :tabnext<CR>
 nnoremap <F5> :vsplit<CR>
 nnoremap <F6> <
 nnoremap <F7> >
-nnoremap [15^ :split<CR>
-nnoremap [17^ -
-nnoremap [18^ +
+"nnoremap [15^ :split<CR>
+"nnoremap [17^ -
+"nnoremap [18^ +
+nnoremap <leader><F5> :split<CR>
+" TODO: need to hit <leader> key everytime, no continuous motion =(
+nnoremap <leader><F6> -
+nnoremap <leader><F7> +
 nnoremap <F8> =
 
 " :help window-move-cursor
@@ -359,16 +447,17 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
 " :help window-moving
-" TODO shortcut keys for moving windows around?
+" TODO: shortcut keys for moving windows around?
 
-" <F9>  | GundoToggle
-" <F10> | TListToggle
-" <F11> | NERDTreeToggle
-" <F12> | spellcheck
-" <F12> | AppendModeline()
-
-"map <leader>a <Esc>:Ack!
-
+" <ctrl>-p      | ctrlp
+" <leader>u     | GundoToggle
+" <leader>b     | minibufexpl
+" <leader>B     | NERDTreeToggle
+" <leader>a     | Ack!
+" <leader>l     | Align
+" <leader>t     | TaskList
+" <F12>         | spellcheck
+" <leader><F12> | AppendModeline()
 
 
 
@@ -442,6 +531,7 @@ nnoremap <C-L> <C-W>l
 " \A  non-alphabetic character
 " \l  lowercase character
 " \L  non-lowercase character
+
 " \u  uppercase character
 " \U  non-uppercase character
 
@@ -460,21 +550,11 @@ nnoremap <C-L> <C-W>l
 " :reg[gisters] | show registers
 " :di[splay]    | ditto
 " :buffers      | show buffers
+" :bn           | next buffer
+" :bp           | prev buffer
+" :b #          | jump to buffer #
+" :ls           | ditto
 " :tab sball    | put all open buffers in tabs
-
-" key mappings
-" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_1%29
-" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_2%29
-" http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_%28Part_3%29
-"
-" :map  | show all key mappings
-" :nmap | only show normal mode maps
-" :imap | only show insert mode maps
-" :vmap | only show visual and select mode maps
-" :smap | only show select mode maps
-" :xmap | only show visual mode maps
-" :cmap | only show command-line mode maps
-" :omap | only show operator pending mode maps
 
 
 " gq magic
