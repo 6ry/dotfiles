@@ -10,25 +10,97 @@
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
-set history=1024
 
-" Enable filetype plugin
+" =============================================================
+" General
+" =============================================================
+
+" enable filetype plugin
+" ----------------------
 filetype plugin on
 filetype indent on
 
-" Set to auto read when a file is changed from the outside
-set autoread
+" default encoding and language
+" -----------------------------
+set encoding=utf8
+try
+    lang en_US
+catch
+endtry
+
+" measurements
+" ------------
+set number              " show line numbers
+set ruler               "always show current position
+
+" code folding
+" ------------
+set foldmethod=indent   " fold based on indentation
+"set foldnestmax=10      " deepest fold is 10 levels
+set nofoldenable        " dont fold by default
+set foldlevel=99
+
+" backup files
+" ------------
+set nobackup            " do not keep a backup files
+set nowritebackup
+
+" search
+" ------
+set hlsearch            " highlight search
+set ignorecase          " ignore case when searching
+set smartcase           " :help smartcase
+set incsearch           " do incremental searches (annoying but handy)
+
+" soft wrap
+" ---------
+set wrap linebreak nolist   " list disables linebreak
+"set wrap linebreak textwidth=0
+
+set ffs=unix,dos,mac           " Default file types
+set nocompatible               " use Vim settings, rather then Vi settings (much better!).
+set history=1024               " how many lines of history to remember
+set autoread                   " Set to auto read when a file is changed from the outside
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set so=7                       " set 7 lines to the curors - when moving vertical..
+set cmdheight=2                " commandbar height
+set wildmenu
+set selectmode=mouse           " select when using the mouse
+set showcmd                    " show (partial) commands
+set shortmess=a                " use 'short messages'
+set showmatch                  " when a bracket is inserted, briefly jump to the matching one
+set wmh=0                      " window min height
+
+" dont want no Ex mode
+nmap Q <Nop>
+
+"set autoindent " always  set auto indenting on
+
+"set verbose=9 " turn on the verboseness to see everything vim is doing.
+"set nonu
+
+" command to unset autoindent
+":setlocal noautoindent nocindent nosmartindent indentexpr=
+":setl noai nocin nosi inde=
+
+" Show tab characters. Visual Whitespace.
+" ---------------------------------------
+"set list
+"set listchars=tab:>.
+
+" Set 'g' substitute flag on
+" set gdefault
 
 
 
 
+
+" =============================================================
 " Vim Plugins
-" ===========
-" * colorscheme
+" =============================================================
+"
+" colorscheme
+" ------------
 " https://code.google.com/p/vimcolorschemetest/
 syntax on
 set background=dark
@@ -39,11 +111,43 @@ colorscheme molokai
 "colorscheme cthulhian
 "colorscheme desert256
 "
-" * pathogen
+" pathogen
+" --------
 " https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
 "
-" * Gundo
+" Airline
+" -------
+" https://github.com/bling/vim-airline
+" :help airline
+" Automatically displays all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='laederon'
+"let g:airline_theme='lucius'
+
+"
+" ctrlp.vim
+" ---------
+" https://kien.github.io/ctrlp.vim/
+" https://github.com/kien/ctrlp.vim.git
+" :help ctrlp-commands
+" :help ctrlp-extensions
+" > In popup windown:
+" <F5>                       | purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" <c-f> and <c-b>            | cycle between modes.
+" <c-d>                      | switch to filename only search instead of full path.
+" <c-r>                      | switch to regexp mode.
+" <c-j>, <c-k> or arrow keys | navigate the result list.
+" <c-t> or <c-v>, <c-x>      | open the selected entry in a new tab or in a new split.
+" <c-n>, <c-p>               | select the next/previous string in the prompt's history.
+" <c-y>                      | create a new file and its parent directories.
+" <c-z>                      | mark/unmark multiple files and <c-o> to open them.
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+" TODO bind CtrlPTag to ctrl-t ??
+"
+" Gundo
+" -----
 " http://sjl.bitbucket.org/gundo.vim/
 " https://github.com/vim-scripts/Gundo
 " http://www.bestofvim.com/plugin/gundo/
@@ -51,95 +155,89 @@ execute pathogen#infect()
 "           :help undo-branches
 nnoremap <F9> :GundoToggle<CR>
 "
-" * Airline
-" https://github.com/bling/vim-airline
-" :help airline
-let g:airline_theme='laederon'
-"let g:airline_theme='lucius'
+" taglist
+" -------
+" https://github.com/vim-scripts/taglist.vim
+nnoremap <F10> :TlistToggle<CR>
 "
-" ctrlp.vim
-" https://kien.github.io/ctrlp.vim/
-" https://github.com/kien/ctrlp.vim.git
-" :help ctrlp-commands
-" :help ctrlp-extensions
-" # Basic Usage #
-" Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
-" Press <c-f> and <c-b> to cycle between modes.
-" Press <c-d> to switch to filename only search instead of full path.
-" Press <c-r> to switch to regexp mode.
-" Use <c-j>, <c-k> or the arrow keys to navigate the result list.
-" Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
-" Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
-" Use <c-y> to create a new file and its parent directories.
-" Use <c-z> to mark/unmark multiple files and <c-o> to open them.
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" nerdtree
+" --------
+" https://github.com/scrooloose/nerdtree
+" http://www.bestofvim.com/plugin/nerdtree/
+nnoremap <F11> :NERDTreeToggle<CR>
 "
-" * vim-markdown
+" Align
+" -----
+" https://github.com/vim-scripts/Align
+"
+" ack.vim
+" -------
+" https://github.com/mileszs/ack.vim
+" https://github.com/vim-scripts/ack.vim
+" > In the quickfix window, you can use:
+" o  | open (same as enter)
+" O  | open and close quickfix window
+" go | preview file (open but maintain focus on ack.vim results)
+" t  | open in new tab
+" T  | open in new tab silently
+" h  | open in horizontal split
+" H  | open in horizontal split silently
+" v  | open in vertical split
+" gv | open in vertical split silently
+" q  | close the quickfix window
+"
+" syntastic
+" ---------
+" https://github.com/scrooloose/syntastic
+"
+" vim-markdown
+" ------------
 " https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
 "
-" * taglist
-" https://github.com/vim-scripts/taglist.vim
-"
-" * Align
-" https://github.com/vim-scripts/Align
-"
-" * nerdtree
-" https://github.com/scrooloose/nerdtree
-" http://www.bestofvim.com/plugin/nerdtree/
-"
-" * netrw
+" netrw
+" -----
 " https://github.com/vim-scripts/netrw.vim
 "
-" * ack
-" https://github.com/vim-scripts/ack.vim
-"
-" * vim-flake8 (Python)
-" https://github.com/nvie/vim-flake8
-"
-" * jedi-vim (Python)
+" jedi-vim (Python)
+" -----------------
 " https://github.com/davidhalter/jedi-vim
+"
 
 
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Python
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-"set runtimepath=~/.vim,/vimfiles,
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Auto commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
+" Auto commands
 " Automatically remove all trailing whitespace upon :write (:w)
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
+" =============================================================
 autocmd BufWritePre * :%s/\s\+$//e
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" =============================================================
 " Persistent Undo
 " :help persistent-undo
 " :help undo-persistence
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 set undofile                " Save undo's after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos (default 1000 for Unix)
 set undoreload=10000        " number of lines to save for undo (default 10000)
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" =============================================================
 " Spell check and highlight
 " http://vimdoc.sourceforge.net/htmldoc/spell.html
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 " use aspell as spellchecker
 " keymap to Ctrl-T
 "map  :w!<CR>:!aspell check %<CR>:e! %<CR>
 
 "set spell spelllang=en
-nnoremap F11> :setlocal spell! spelllang=en<CR>
+nnoremap <F12> :setlocal spell! spelllang=en<CR>
 " zg to add word to word list
 " zw to reverse
 " zug to remove word from word list
@@ -158,88 +256,32 @@ highlight SpellLocal term=underline cterm=underline
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the curors - when moving vertical..
-set so=7
-
-set ruler "Always show current position
-
-set cmdheight=2 "The commandbar height
-
-set ignorecase "Ignore case when searching
-set smartcase
-
-set hlsearch "Highlight search things
-
-set wildmenu
-
-" soft wrap
-set wrap linebreak nolist   " list disables linebreak
-"set wrap linebreak textwidth=0
-
-" dont want no Ex mode
-nmap Q <Nop>
+"" =============================================================
+"" modeline magic
+"" http://vim.wikia.com/wiki/Modeline_magic
+"" :help auto-setting
+"" :help modeline
+"" :help modelines
+"" =============================================================
+"" Append modeline after last line in buffer.
+"" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+"" files.
+"function! AppendModeline()
+"  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+"          \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+"  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+"call append(line("$"), l:modeline)
+"endfunction
+"" nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+"nnoremap <F12> :call AppendModeline()<CR>
 
 
 
 
-
-
-"set nonu
-
-set encoding=utf8
-try
-    lang en_US
-catch
-endtry
-
-set ffs=unix,dos,mac "Default file types
-
-" Use Vim settings, rather then Vi settings (much better!).
-set nocompatible
-
-" line numbers
-set number
-
-
-" code folding
-set foldmethod=indent   " fold based on indentation
-"set foldnestmax=10      " deepest fold is 10 levels
-set nofoldenable        " dont fold by default
-set foldlevel=99
-
-" Turn on the verboseness to see everything vim is doing.
-" set verbose=9
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-
-" modeline magic
-" http://vim.wikia.com/wiki/Modeline_magic
-"
-" :help auto-setting
-" :help modeline
-" :help modelines
-"
-" Append modeline after last line in buffer.
-" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
-" files.
-function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-          \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-call append(line("$"), l:modeline)
-endfunction
-" nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-nnoremap <F12> :call AppendModeline()<CR>
-
-
+" =============================================================
 " tabs and indentation mess
 " http://tedlogan.com/techblog3.htmlA
-"
+" =============================================================
 " >> tabstop
 " Set tabstop to tell vim how many columns a tab counts for.
 "
@@ -257,7 +299,6 @@ nnoremap <F12> :call AppendModeline()<CR>
 " of tabs and spaces to make up the desired spacing. If softtabstop equals tabstop and
 " expandtab is not set, vim will always use tabs. When expandtab is set, vim will always
 " use the appropriate number of spaces.
-
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -265,48 +306,10 @@ set expandtab
 
 
 
-" Always  set auto indenting on
-"set autoindent
 
-" command to unset autoindent
-":setlocal noautoindent nocindent nosmartindent indentexpr=
-":setl noai nocin nosi inde=
-
-" select when using the mouse
-set selectmode=mouse
-
-" set the commandheight
-set cmdheight=2
-
-" do not keep a backup files
-set nobackup
-set nowritebackup
-
-" show the cursor position all the time
-set ruler
-
-" show (partial) commands
-set showcmd
-
-" do incremental searches (annoying but handy);
-set incsearch
-
-" Show  tab characters. Visual Whitespace.
-"set list
-"set listchars=tab:>.
-
-" Set ignorecase on
-set ignorecase
-
-" smart search (override 'ic' when pattern has uppers)
-set scs
-
-" Set 'g' substitute flag on
-" set gdefault
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 " Status line (DEPRECATED by vim-airline)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 "" Set status line
 ""set statusline=[%02n]\ %f\ %(\[%M%R%H]%)%=\ %4l,%02c%2V\ %P%*
 "let s  = ""
@@ -323,25 +326,15 @@ set scs
 "let s .= "/%LL"                               | " number of lines
 "set statusline=%!s
 
-
 " Always display a status line at the bottom of the window
 set laststatus=2
 
-" Set vim to use 'short messages'.
-set shortmess=a
-
-" showmatch: Show the matching bracket for the last ')'?
-set showmatch
-
-" window min height
-set wmh=0
 
 
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 "" Key bindings (re)map
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 " map function keys F2, F3, F4 to tab operations
 nnoremap <F2> :tabnew
 nnoremap <F3> :tabprevious<CR>
@@ -368,10 +361,11 @@ nnoremap <C-L> <C-W>l
 " :help window-moving
 " TODO shortcut keys for moving windows around?
 
-" <F9> mapped to Gundo
-" <F11> mapped to spellcheck
-" <F12> mapped to AppendModeline()
-
+" <F9>  | GundoToggle
+" <F10> | TListToggle
+" <F11> | NERDTreeToggle
+" <F12> | spellcheck
+" <F12> | AppendModeline()
 
 "map <leader>a <Esc>:Ack!
 
@@ -379,15 +373,50 @@ nnoremap <C-L> <C-W>l
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 " Tips reminder
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================
 
 " vimtips
 " http://www-tips.org/tips
 
 
+" * reverse lines
+" {Visual-Line}!tac
+"
+" * toggle case
+" {Visual}~
+"
+" * sort lines
+" :%sort   | sort
+" :%sort!  | sort in reverse
+" :%sort u | sort, and remove duplicates
+" :%sort n | numeric sort
+
+
 " http://vimregex.com/
+"
+" .   any character except new line
+" \s  whitespace character
+" \S  non-whitespace character
+" \d  digit
+" \D  non-digit
+" \x  hex digit
+" \X  non-hex digit
+" \o  octal digit
+" \O  non-octal digit
+" \h  head of word character (a,b,c...z,A,B,C...Z and _)
+" \H  non-head of word character
+" \p  printable character
+" \P  like \p, but excluding digits
+" \w  word character
+" \W  non-word character
+" \a  alphabetic character
+" \A  non-alphabetic character
+" \l  lowercase character
+" \L  non-lowercase character
+" \u  uppercase character
+" \U  non-uppercase character
 
 
 " :E[xplore]        opens the file explorer window
@@ -430,11 +459,62 @@ nnoremap <C-L> <C-W>l
 " Text objects
 " :help text-objects
 " http://blog.carbonfive.com/2011/10/17/vim-text-objects-the-definitive-guide/
-" ciw
-" caw
-" diw
-" daw
-" caW
+"
+" prefix | action
+" ------ | ------
+" d      | delete
+" c      | change
+" y      | yank
+" v      | visual
+"
+" suffix         | meaning
+" ------         | -------
+" aw/iw          | Word by punctuation
+" aW/iW          | Word by whitespace (:help WORD)
+" as/is          | Sentence
+" ap/ip          | Paragraph
+" a'/i' or a"/i" | Quotes
+" a)/i)          | Parentheses
+" a]/i]          | Brackets
+" a}/i}          | Braces
+" a>/i>          | Angle Brackets
+" at/it          | Tags (e.g. <html>inner</html>)
+"
+" Simple Examples
+" ---------------
+" dl  | delete character (alias: x)
+" diw | delete inner word
+" daw | delete a word
+" diW | delete inner WORD
+" daW | delete a WORD
+" dgn | delete the next search pattern match
+" dd  | delete one line
+" dis | delete inner sentence
+" das | delete a sentence
+" dib | delete inner '(' ')' block
+" dab | delete a '(' ')' block
+" dip | delete inner paragraph
+" dap | delete a paragraph
+" diB | delete inner '{' '}' block
+" daB | delete a '{' '}' block
+
+" More Examples
+" -------------
+" http://vim.wikia.com/wiki/Replace_a_word_with_yanked_text
+"
+" Copy a word and paste it over other words:
+" yiw     yank inner word (copy word under cursor, say "first").
+" ...     Move the cursor to another word (say "second").
+" viwp    select "second", then replace it with "first".
+" ...     Move the cursor to another word (say "third").
+" viw"0p  select "third", then replace it with "first".
+"
+" Copy a line and paste it over other lines:
+" yy      yank current line (say "first line").
+" ...     Move the cursor to another line (say "second line").
+" Vp      select "second line", then replace it with "first line".
+" ...     Move the cursor to another line (say "third line").
+" V"0p    select "third line", then replace it with "first line".
 
 
 " https://wiki.archlinux.org/index.php/Vimrc
@@ -512,71 +592,71 @@ nnoremap <C-L> <C-W>l
 " SET HELP {{{3
 " ---------------------------------
 " :verbose set opt? - show where opt was set
-" set opt!        - invert
-" set invopt      - invert
-" set opt&        - reset to default
-" set all&        - set all to def
-" :se[t]          Show all options that differ from their default value.
-" :se[t] all      Show all but terminal options.
-" :se[t] termcap      Show all terminal options.  Note that in the GUI the
+" set opt!       | invert
+" set invopt     | invert
+" set opt&       | reset to default
+" set all&       | set all to def
+" :se[t]         | Show all options that differ from their default value.
+" :se[t] all     | Show all but terminal options.
+" :se[t] termcap | Show all terminal options.  Note that in the GUI the
 
 
 
 " TAB HELP   {{{3
 " ---------------------------------
-" tc  - create a new tab
-" td  - close a tab
-" tn  - next tab
-" tp  - previous tab
+" tc | create a new tab
+" td | close a tab
+" tn | next tab
+" tp | previous tab
 
 
 
 " UPPERCASE, LOWERCASE, INDENTS {{{3
 " ---------------------------------
-" '.  - last modification in file!
-" gf  - open file under cursor
-" guu - lowercase line
-" gUU - uppercase line
-" =   - reindent text
+" '.  | last modification in file!
+" gf  | open file under cursor
+" guu | lowercase line
+" gUU | uppercase line
+" =   | reindent text
 
 
 
 " FOLDS {{{3
 " ---------------------------------
-" F   - create a fold from matching parenthesis
-" fm  - (zm)  more folds
-" fl  - (zr) less/reduce folds
-" fo  - open all folds (zR)
-" fc  - close all folds (zM)
-" ff  -  (zf) - create a fold
-" fd  - (zd)  - delete fold at cursor
-" zF  - create a fold N lines
-" zi  - invert foldenable
+" F  | create a fold from matching parenthesis
+" fm | (zm)  more folds
+" fl | (zr) less/reduce folds
+" fo | open all folds (zR)
+" fc | close all folds (zM)
+" ff |  (zf) - create a fold
+" fd | (zd)  - delete fold at cursor
+" zF | create a fold N lines
+" zi | invert foldenable
 
 
 
 " KEYSEQS HELP {{{3
 " ---------------------------------
-" CTRL-I - forward trace of changes
-" CTRL-O - backward trace of changes!
-" C-W W    - Switch to other split window
-" CTRL-U        - DELETE FROM CURSOR TO START OF LINE
-" CTRL-^        - SWITCH BETWEEN FILES
-" CTRL-W-TAB  - CREATE DUPLICATE WINDOW
-" CTRL-N        - Find keyword for word in front of cursor
-" CTRL-P        - Find PREV ditto
+" CTRL-I     | forward trace of changes
+" CTRL-O     | backward trace of changes!
+" C-W W      | Switch to other split window
+" CTRL-U     | DELETE FROM CURSOR TO START OF LINE
+" CTRL-^     | SWITCH BETWEEN FILES
+" CTRL-W-TAB | CREATE DUPLICATE WINDOW
+" CTRL-N     | Find keyword for word in front of cursor
+" CTRL-P     | Find PREV ditto
 
 
 " SEARCH / REPLACE {{{3
 " ---------------------------------
-" :%s/^\s\+//    - delete leading whitespaces
-" :%s/\s\+$//    - delete trailing whitespaces
-" :%s/a\|b/xxx\0xxx/g             modifies a b      to xxxaxxxbxxx
-" :%s/\([abc]\)\([efg]\)/\2\1/g   modifies af fa bg to fa fa gb
-" :%s/abcde/abc^Mde/              modifies abcde    to abc, de (two lines)
-" :%s/$/\^M/                      modifies abcde    to abcde^M
-" :%s/\w\+/\u\0/g                 modifies bla bla  to Bla Bla
-" :g!/\S/d                delete empty lines in file
+" :%s/^\s\+//                   | delete leading whitespaces
+" :%s/\s\+$//                   | delete trailing whitespaces
+" :%s/a\|b/xxx\0xxx/g           | modifies a b      to xxxaxxxbxxx
+" :%s/\([abc]\)\([efg]\)/\2\1/g | modifies af fa bg to fa fa gb
+" :%s/abcde/abc^Mde/            | modifies abcde    to abc, de (two lines)
+" :%s/$/\^M/                    | modifies abcde    to abcde^M
+" :%s/\w\+/\u\0/g               | modifies bla bla  to Bla Bla
+" :g!/\S/d                      | delete empty lines in file
 
 
 "  COMMANDS {{{3
