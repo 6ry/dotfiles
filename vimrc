@@ -117,6 +117,7 @@ execute pathogen#infect()
 " Airline
 " -------
 " https://github.com/bling/vim-airline
+" https://github.com/bling/vim-airline.git
 " :help airline
 " Automatically displays all buffers when there's only one tab open
 "let g:airline#extensions#tabline#enabled = 1
@@ -127,6 +128,7 @@ let g:airline_theme='laederon'
 " -----------
 " http://fholgado.com/minibufexpl
 " https://github.com/fholgado/minibufexpl.vim
+" https://github.com/fholgado/minibufexpl.vim.git
 noremap <leader>b  <Esc>:MBEToggle<CR>
 "noremap <leader>bn <Esc>:MBEbn<CR>
 "noremap <leader>bp <Esc>:MBEbp<CR>
@@ -157,6 +159,7 @@ let g:ctrlp_cmd = 'CtrlP'
 " Gundo
 " -----
 " http://sjl.bitbucket.org/gundo.vim/
+" https://github.com/sjl/gundo.vim.git
 " https://github.com/vim-scripts/Gundo
 " http://www.bestofvim.com/plugin/gundo/
 " related   :help undo-tree
@@ -173,6 +176,7 @@ nnoremap <leader>q <Esc>:TlistToggle<CR>
 " vim-easytags
 " ------------
 " https://github.com/xolox/vim-easytags
+" https://github.com/xolox/vim-easytags.git
 "
 " > :UpdateTags
 " > -----------
@@ -205,17 +209,20 @@ nnoremap <leader>q <Esc>:TlistToggle<CR>
 " nerdtree
 " --------
 " https://github.com/scrooloose/nerdtree
+" https://github.com/scrooloose/nerdtree.git
 " http://www.bestofvim.com/plugin/nerdtree/
 nnoremap <leader>B <Esc>:NERDTreeToggle<CR>
 "
 " Align
 " -----
 " https://github.com/vim-scripts/Align
-noremap <leader>l <Esc>:Align<Space>
+" https://github.com/vim-scripts/Align.git
+noremap <leader><bar> <Esc>:Align<Space>
 "
 " ack.vim
 " -------
 " https://github.com/mileszs/ack.vim
+" https://github.com/mileszs/ack.vim.git
 " https://github.com/vim-scripts/ack.vim
 " > In the quickfix window, you can use:
 " o  | open (same as enter)
@@ -230,26 +237,40 @@ noremap <leader>l <Esc>:Align<Space>
 " q  | close the quickfix window
 noremap <leader>a <Esc>:Ack!<Space>
 "
+" vim-signature
+" -------------
+" https://github.com/kshenoy/vim-signature
+" https://github.com/kshenoy/vim-signature.git
+" Plugin to toggle, display and navigate marks
+"
 " supertab
+" --------
 " https://github.com/ervandew/supertab
+" https://github.com/ervandew/supertab.git
+" Perform all your vim insert mode completions with Tab
 "
 " syntastic
 " ---------
 " https://github.com/scrooloose/syntastic
+" https://github.com/scrooloose/syntastic.git
+" Syntax checking hacks for vim
 "
 " TaskList
 " --------
 " https://github.com/vim-scripts/TaskList.vim
+" https://github.com/vim-scripts/TaskList.vim.git
 " NOTE: TaskList mapped to <leader>t
 "
 " vim-markdown
 " ------------
 " https://github.com/plasticboy/vim-markdown
+" https://github.com/plasticboy/vim-markdown.git
 let g:vim_markdown_folding_disabled=1
 "
 " jedi-vim (Python)
 " -----------------
 " https://github.com/davidhalter/jedi-vim
+" https://github.com/davidhalter/jedi-vim.git
 
 
 
@@ -285,7 +306,8 @@ let g:vim_markdown_folding_disabled=1
 " Automatically remove all trailing whitespace upon :write (:w)
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 " =============================================================
-autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\s\+$//e
+"*** turned it off for markdown syntax conflist ***
 
 
 
@@ -449,7 +471,8 @@ nnoremap <leader><F12> :call AppendModeline()<CR>
 " <bar>          the '|' character, which otherwise needs to be escaped '\|'
 " =============================================================
 " map function keys F2, F3, F4 to tab operations
-nnoremap <F2> :tabnew
+nnoremap <F2> :tabnew<CR>
+"nnoremap <leader><F2> :tabclose<CR> "TODO: a little dangerous: will close tab without saving changes
 nnoremap <F3> :tabprevious<CR>
 nnoremap <F4> :tabnext<CR>
 
@@ -494,34 +517,117 @@ nnoremap <C-L> <C-W>l
 " =============================================================
 " Tips reminder
 " =============================================================
+
 " cheatsheet
 " http://bullium.com/support/vim_print.html
 
+
 " run from shell
 " $ vimtutor
+
 
 " vimtips
 " http://www-tips.org/tips
 
 
-" * reverse lines
+" reverse lines
 " {Visual-Line}!tac
-"
-" * toggle case
+
+
+" toggle case
 " {Visual}~
-"
-" * sort lines
+
+
+
+
+" Vim Moving Around
+" -----------------
+" 
+" key | action
+" --- | ------
+" h   | move one character left
+" j   | move one row down
+" k   | move one row up
+" l   | move one character right
+" w   | move to beginning of next word
+" b   | move to beginning of previous word
+" e   | move to end of word
+" W   | move to beginning of next word after a whitespace
+" B   | move to beginning of previous word before a whitespace
+" E   | move to end of word before a whitespace
+" 
+" All the above movements can be preceded by a count; e.g. 4j will move down 4 lines.
+" 
+" key | action
+" --- | ------
+" 0   | move to beginning of line
+" $   | move to end of line
+" ^   | move to first non-blank char of the line
+" _   | same as above, but can take a count to go to a different line
+" g_  | move to last non-blank char of the line (can also take a count as above)
+" 
+" key | action
+" --- | ------
+" gg  | move to first line
+" G   | move to last line
+" nG  | move to n'th line of file (where n is a number)
+" 
+" key | action
+" --- | ------
+" H   | move to top of screen
+" M   | move to middle of screen
+" L   | move to bottom of screen
+" 
+" key | action
+" --- | ------
+" z.  | put the line with the cursor at the center
+" zt  | put the line with the cursor at the top
+" zb  | put the line with the cursor at the bottom of the screen
+" 
+" key    | action
+" ---    | ------
+" Ctrl-D | move half-page down
+" Ctrl-U | move half-page up
+" Ctrl-B | page up
+" Ctrl-F | page down
+" Ctrl-o | jump to last cursor position
+" Ctrl-i | jump to next cursor position
+" 
+" key | action
+" --- | ------
+" n   | next matching search pattern
+" N   | previous matching search pattern
+" *   | next word under cursor
+" #   | previous word under cursor
+" g*  | next matching search pattern under cursor
+" g#  | previous matching search pattern under cursor
+" 
+" 
+" key | action
+" --- | ------
+" %   | jump to matching bracket { } [ ] ( )
+
+
+
+
+" Sort Lines
+" ----------
 " :%sort   | sort
 " :%sort!  | sort in reverse
 " :%sort u | sort, and remove duplicates
 " :%sort n | numeric sort
-"
-" * power of g
+
+
+
+
+" Power of g
+" ----------
 " http://vim.wikia.com/wiki/Power_of_g
+"
 " :g/^\s*$/d        | delete empty lines in file
 " :g!/\S/d          | delete empty lines in file
 " :v/\S/d           | delete empty lines in file
-" :g/^/pu =\"\n\"   | double psace the file
+" :g/^/pu =\"\n\"   | double space the file
 " :g/^/pu _         | double space the file
 " qaq:g/pattern/y A | copy all lines matching a pattern to register 'a'
 "                   | explanation: qaq is a trick to clear register a (qa starts recording a
@@ -529,6 +635,14 @@ nnoremap <C-L> <C-W>l
 "                   | Ex command (:help :y). It yanks the current line into register A (append
 "                   | to register a).
 " :g/pattern/d_     | FAST delete of all lines matching a pattern
+
+
+
+
+" Move/Copy Whole Lines
+" ---------------------
+" :help m[ove]
+" :help co[py]
 "
 " :2,8co15  | copy lines 2 through 8 after line 15
 " :4,15t$   | copy lines 4 through 15 to end of document (t == co)
@@ -537,10 +651,12 @@ nnoremap <C-L> <C-W>l
 " :.,+3m$-1 | current line through current+3 are moved to the lastLine-1 (i.e. next to last)
 
 
+
+
+" Escaped Characters (regex)
+" --------------------------
 " http://vimregex.com/
 "
-" escaped characters
-" ------------------
 " .   any character except new line
 " \s  whitespace character
 " \S  non-whitespace character
@@ -560,9 +676,43 @@ nnoremap <C-L> <C-W>l
 " \A  non-alphabetic character
 " \l  lowercase character
 " \L  non-lowercase character
-
 " \u  uppercase character
 " \U  non-uppercase character
+
+" Regular Expression Special Characters **Not** Requiring Escaping
+" ----------------------------------------------------------------
+" http://jeetworks.org/vim-regular-expression-special-characters-to-escape-or-not-to-escape/
+"
+" Quantifier | Description
+" ---------- | -----------
+" \          | Escape next character (use '\\' for literal backslash)
+" ^          | Start-of-line (at start of pattern)
+" $          | End-of-line
+" .          | Matches any character
+" *          | Matches 0 or more occurrences of the previous atom
+" ~          | Matches last given substitute string
+" [...]      | Matches any of the characters given within the brackets
+" [^...]     | Matches any character not given within the brackets
+" &          | In replacement pattern: insert the whole matched search pattern
+
+" Regular Expression Special Characters Requiring Escaping
+" --------------------------------------------------------
+" http://jeetworks.org/vim-regular-expression-special-characters-to-escape-or-not-to-escape/
+"
+" Quantifier | Description
+" ---------- | -----------
+" \<         | Matches beginning of a word (left word break/boundary)
+" \>         | Matches end of a word (right word break/boundary)
+" \(...\)    | Grouping into an atom
+" \|         | Separating alternatives
+" \_.        | Matches any single character or end-of-line
+" \+         | 1 or more of the previous atom (greedy)
+" \=         | 0 or one of the previous atom (greedy)
+" \?         | 0 or one of the previous atom (greedy)
+" \{         | Multi-item count match specification (greedy).
+" \{-        | Multi-item count match specification (non-greedy).
+
+
 
 
 " :E[xplore]        opens the file explorer window
@@ -575,24 +725,61 @@ nnoremap <C-L> <C-W>l
 " Ctrl-O            trace changes backward
 
 
+
+
 " :marks        | show marks
 " :reg[gisters] | show registers
 " :di[splay]    | ditto
 " :buffers      | show buffers
+" :ls           | ditto
 " :bn           | next buffer
 " :bp           | prev buffer
+" :bd           | delete current buffer
 " :b #          | jump to buffer #
-" :ls           | ditto
 " :tab sball    | put all open buffers in tabs
 
 
-" gq magic
-" http://vimdoc.sourceforge.net/htmldoc/change.html#gq
+
+
+" Copying and Pasting Text (with registers)
+" -----------------------------------------
+"
+" {a-zA-Z0-9.%#:-"}          | Use register {a-zA-Z0-9.%#:-"} for next delete, yank or put (use uppercase character to append with delete and yank) ({.%#:} only work with put).
+" :reg[isters]               | Display the contents of all numbered and named registers.
+" :reg[isters] {arg}         | Display the contents of the numbered and named registers that are mentioned in {arg}.
+" :di[splay] [arg]           | Same as :registers.
+" ["x]y{motion}              | Yank {motion} text [into register x].
+" ["x]yy                     | Yank [count] lines [into register x]
+" ["x]Y                      | yank [count] lines [into register x] (synonym for yy).
+" {Visual}["x]y              | Yank the highlighted text [into register x] (for {Visual} see Selecting Text).
+" {Visual}["x]Y              | Yank the highlighted lines [into register x]
+" :[range]y[ank] [x]         | Yank [range] lines [into register x].
+" :[range]y[ank] [x] {count} | Yank {count} lines, starting with last line number in [range] (default: current line), [into register x].
+" ["x]p                      | Put the text [from register x] after the cursor [count] times.
+" ["x]P                      | Put the text [from register x] before the cursor [count] times.
+" ["x]gp                     | Just like "p", but leave the cursor just after the new text.
+" ["x]gP                     | Just like "P", but leave the cursor just after the new text.
+" :[line]pu[t] [x]           | Put the text [from register x] after [line] (default current line).
+" :[line]pu[t]! [x]          | Put the text [from register x] before [line] (default current line).
+
+
+
+
+" gq Magic - format lines to 'textwidth' length
+" ---------------------------------------------
+" :help gq
+"
 " gqap or {Visual}gq
 " gwap or {Visual}gw
 
+" join lines -- visual select entire paragraph, and then press J
+" {Visual}J
 
-" Text objects
+
+
+
+" Text Objects
+" ------------
 " :help text-objects
 " http://blog.carbonfive.com/2011/10/17/vim-text-objects-the-definitive-guide/
 "
@@ -653,6 +840,8 @@ nnoremap <C-L> <C-W>l
 " V"0p    select "third line", then replace it with "first line".
 
 
+
+
 " https://wiki.archlinux.org/index.php/Vimrc
 "
 " VIM TIPS / HELP / TRICKS   {{{1
@@ -676,17 +865,35 @@ nnoremap <C-L> <C-W>l
 " DELETE TRAILING WHITESPACE {{{3
 " :%s/\s\+$//
 
+
 " Changing Case
-" gUw                             : uppercase word
-" guw                             : lowercase word
-" guu                             : lowercase line
-" gUU                             : uppercase line
-" Vu                              : lowercase line
-" VU                              : uppercase line
-" g~~                             : flip case line
-" vEU                             : Upper Case Word ???
-" vE~                             : Flip Case Word
-" ggguG                           : lowercase entire file
+" -------------
+" http://vim.wikia.com/wiki/Switching_case_of_characters
+"
+" :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g | converts the current line to Title Case
+"
+" g~$                             | toggle case of all characters to end of line
+"
+" gUw                             | uppercase from current cursor till end of word
+" guw                             | lowercase from current cursor till end of word
+" g~w                             | toggle case from current cursor till end of word
+"
+" gUiw                            | uppercase current word (inner word – cursor anywhere in word)
+" guiw                            | lowercase current word (inner word – cursor anywhere in word)
+" g~iw                            | toggle case current word (inner word – cursor anywhere in word)
+"
+" guu                             | lowercase line
+" gUU                             | uppercase line
+" g~~                             | toggle case Line
+"
+" Vu                              | lowercase line
+" VU                              | uppercase line
+" V~                              | toggle case line
+"
+" gggUG                           | uppercawe entire file
+" ggguG                           | lowercase entire file
+" ggg~G                           | toggle entire file
+"
 " " Titlise Visually Selected Text (map for .vimrc)
 " vmap ,c :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
 " " Title Case A Line Or Selection (better)
@@ -724,7 +931,6 @@ nnoremap <C-L> <C-W>l
 " :copen,  :cclose            open/close the quickfix window; press <Enter> to jump to the item under the cursor
 
 
-
 " SET HELP {{{3
 " ---------------------------------
 " :verbose set opt? - show where opt was set
@@ -737,14 +943,12 @@ nnoremap <C-L> <C-W>l
 " :se[t] termcap | Show all terminal options.  Note that in the GUI the
 
 
-
 " TAB HELP   {{{3
 " ---------------------------------
 " tc | create a new tab
 " td | close a tab
 " tn | next tab
 " tp | previous tab
-
 
 
 " UPPERCASE, LOWERCASE, INDENTS {{{3
@@ -754,7 +958,6 @@ nnoremap <C-L> <C-W>l
 " guu | lowercase line
 " gUU | uppercase line
 " =   | reindent text
-
 
 
 " FOLDS {{{3
@@ -768,7 +971,6 @@ nnoremap <C-L> <C-W>l
 " fd | (zd)  - delete fold at cursor
 " zF | create a fold N lines
 " zi | invert foldenable
-
 
 
 " KEYSEQS HELP {{{3

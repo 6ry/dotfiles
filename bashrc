@@ -241,8 +241,9 @@ alias less='less -ir'           # case insensitive when search
 alias l='less'
 alias grep='grep --color=auto -i'
 alias g='grep'
-#alias hl='ack --passthru'       # highlight -- ack passthru mode
-alias hl='less --pattern'
+alias hl='ack --noenv --color --passthru'
+# highlight pattern in a file
+# grep -E --color 'pattern|' file
 
 alias sudo='sudo '      # so that sudo works with aliases
 
@@ -254,7 +255,8 @@ alias lsfs='lsblk --fs'
 
 # aliases for ps
 alias psg='ps aux | head -1; ps aux | grep $1'   # TODO: improve me - do it with one ps
-alias psc="ps xawf -eo pid,user,cgroup,args"
+alias psc="ps xawf -eo ppid,pid,tt,user,group,etime,stat,args"
+
 
 # editors
 alias em='emacs'
@@ -277,6 +279,7 @@ alias locate='locate -i'
 alias mupdf='mupdf -r144'       # default resolution 144dpi
 #alias feh='feh -F --info "exiv2 %F"'
 alias feh='feh -. --info "exiv2 %F" --draw-tinted 2>/dev/null'
+alias mtr='mtr -b'
 alias netports='netstat --all --programs --numeric-ports --tcp --udp --extend --extend --verbose'
 
 
@@ -327,12 +330,16 @@ export PATH="$HOME/b:$PATH"
 ##
 ## keyboard and mouse rate
 ##
+# TODO
+# TODO check xinit is already running
+# TODO
 xset r rate 200 55
 xset m 1/1 0
 
 
 # other stuff
 source $HOME/.bash/secret
+source $HOME/.bash/pastebinhack
 source $HOME/.bash/sshkeychain
 source $HOME/.bash/appsexport
 source $HOME/.bash/uglyhacks

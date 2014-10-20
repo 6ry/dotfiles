@@ -27,12 +27,12 @@ rxvt*background:   grey3
 !
 urxvt*scrollBar:     true
 urxvt*cursorBlink:   true
-!urxvt*geometry:     80x40
+urxvt*geometry:      90x45
 urxvt*font:          -*-fixed-medium-*-*-*-14-*-*-*-*-*-*-*
 
 urxvt*saveLines:     65536
 urxvt*foreground:    grey80
-urxvt*background:    #282d32
+urxvt*background:    grey3
 
 
 !

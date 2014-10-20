@@ -28,10 +28,10 @@ set number
 set so=7
 
 " always show current position
-set ruler 
+set ruler
 
 " highlight search things
-set hlsearch 
+set hlsearch
 
 " fancy menu
 set wildmenu
@@ -107,6 +107,17 @@ set statusline=%!s
 
 
 
+" =============================================================
+" Auto commands
+" Automatically remove all trailing whitespace upon :write (:w)
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
+" =============================================================
+autocmd BufWritePre * :%s/\s\+$//e
+
+
+
+
+
 ""
 "" Key bindings (re)map
 ""
@@ -115,21 +126,24 @@ nnoremap <F2> :tabnew
 nnoremap <F3> :tabprevious<CR>
 nnoremap <F4> :tabnext<CR>
 
-
-
-
-
 " window splits
 " (ctrl) F5, F6, F7, F8 to split and resize windows
 " also see
 " :help opening-window
-" :help window-move-cursor
-" :help window-moving
 " :help window-resize
 nnoremap <F5> :vsplit<CR>
-nnoremap <F6> ^W<
-nnoremap <F7> ^W>
-nnoremap ^[[15^ :split<CR>
-nnoremap ^[[17^ ^W-
-nnoremap ^[[18^ ^W+
-nnoremap <F8> ^W=
+nnoremap <F6> <
+nnoremap <F7> >
+nnoremap <leader><F5> :split<CR>
+" TODO: need to hit <leader> key everytime, no continuous motion =(
+nnoremap <leader><F6> 5-
+nnoremap <leader><F7> 5+
+nnoremap <F8> =
+
+" :help window-move-cursor
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
+" :help window-moving
+" TODO: shortcut keys for moving windows around?
